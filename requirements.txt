@@ -1,0 +1,4 @@
+django
+django-crispy-forms
+django-gravatar2
+django-markdown2

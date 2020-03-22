@@ -1,0 +1,53 @@
+{% extends "bleet/base.html" %}
+{% load gravatar %}
+{% block content %}
+    {% if follow == 'follows' %}
+         <div class="col-12 no-padding">
+            <h3 class="white-important mb-3">
+                Follows
+            </h3>
+            <div class="row pr-3 pl-3">
+                {% for follow in follows %}
+                    <div class="col-6 col-md-3 pl-0">
+                        <article class="media content-section">
+                            <div>
+                                <img
+                                           class="rounded-circle mr-2"
+                                           style="width: 20px; height: 20px;"
+                                           src="{% gravatar_url follow.follow_user.email 20%}">
+                               <a class="mr-2 white-important" href="{% url 'user-bleets' follow.follow_user.username %}">
+                                   {{ follow.follow_user.username }}
+                               </a>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if follow == 'followers' %}
+         <div class="col-12 no-padding">
+            <h3 class="white-important mb-3">
+                Followers
+            </h3>
+            <div class="row pr-3 pl-3">
+                {% for follow in follows %}
+                    <div class="col-6 col-md-3 pl-0">
+                        <article class="media content-section">
+                            <div>
+                                <img
+                                           class="rounded-circle mr-2"
+                                           style="width: 20px; height: 20px;"
+                                           src="{% gravatar_url follow.user.email 20%}">
+                               <a class="mr-2 white-important" href="{% url 'user-bleets' follow.user.username %}">
+                                   {{ follow.user.username }}
+                               </a>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}
