@@ -6,11 +6,12 @@ class Profile(models.Model):
     """
     Represents a user's profile
     """
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=256)
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f"{self.user.username} Profile"
 
     @property
     def followers(self):
@@ -22,6 +23,8 @@ class Profile(models.Model):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
-    follow_user = models.ForeignKey(User, related_name='follow_user', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
+    follow_user = models.ForeignKey(
+        User, related_name="follow_user", on_delete=models.CASCADE
+    )
     date = models.DateTimeField(auto_now_add=True)

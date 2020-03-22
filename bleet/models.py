@@ -8,8 +8,10 @@ class Bleet(models.Model):
     """
     Represents a bleet.
     """
-    content = models.TextField("Bleet",
-                               help_text="The content of your bleet. Use Markdown.")
+
+    content = models.TextField(
+        "Bleet", help_text="The content of your bleet. Use Markdown."
+    )
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -25,6 +27,7 @@ class Comment(models.Model):
     """
     Represents a comment on a bleet.
     """
+
     content = models.TextField("Comment", help_text="Use Markdown.", max_length=150)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

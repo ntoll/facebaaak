@@ -16,22 +16,74 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Bleet',
+            name="Bleet",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content', models.TextField(help_text='The content of your bleet. Use Markdown.', verbose_name='Bleet')),
-                ('date_posted', models.DateTimeField(default=django.utils.timezone.now)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content",
+                    models.TextField(
+                        help_text="The content of your bleet. Use Markdown.",
+                        verbose_name="Bleet",
+                    ),
+                ),
+                (
+                    "date_posted",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content', models.TextField(help_text='Use Markdown.', max_length=150, verbose_name='Comment')),
-                ('date_posted', models.DateTimeField(default=django.utils.timezone.now)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('bleet_connected', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bleet.Bleet')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content",
+                    models.TextField(
+                        help_text="Use Markdown.",
+                        max_length=150,
+                        verbose_name="Comment",
+                    ),
+                ),
+                (
+                    "date_posted",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "bleet_connected",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="bleet.Bleet"
+                    ),
+                ),
             ],
         ),
     ]
