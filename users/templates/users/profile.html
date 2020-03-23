@@ -14,4 +14,14 @@
             <button class="btn btn-outline-primary" type="submit">Change data</button>
         </div>
     </form>
+    <h3 class="white-important">
+        API Token
+    </h3>
+    <p>Your API token is: {{ token }}</p>
+
+    <p>When making API requests you should ensure your token is included in
+    the <code>Authorization</code> HTTP header. The key should be prefixed by
+    the string literal "Token", with whitespace separating the two strings.
+    For example:</p>
+    <p><code>Authorization: Token {{ token }}</code></p>
 {% endblock content %}

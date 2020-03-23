@@ -10,7 +10,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--muted-color);
+  color: #222;
 }
 
 ul {
@@ -101,12 +101,6 @@ article {
     width: 100%
 }
 
-.btn-outline-primary {
-    border-color: #ccc;
-    color: #222 !important;
-    background-color: #ddd !important;
-}
-
 .btn:active, .btn-outline-primary:hover {
     color: #000 !important;
     background-color: #aaa !important;
@@ -145,15 +139,22 @@ textarea:focus, input:focus {
     border-color: white;
 }
 
-.btn-outline-secondary {
-    border-color: rgba(255, 255, 255, 0.5);
+.btn-outline-primary {
+    border-color: #ccc;
     color: #222 !important;
+    background-color: #ddd !important;
+}
+
+.btn-outline-secondary {
+    border-color: #ddd;
+    background-color: #eee !important;
+    color: #444 !important;
 }
 
 .btn-outline-secondary:hover {
-    color: #00FBD7 !important;
-    background-color: #ddd !important;
-    border-color: #00FBD7 !important;
+    color: #666 !important;
+    background-color: #ccc !important;
+    border-color: #bbb !important;
 }
 
 .alert-danger {

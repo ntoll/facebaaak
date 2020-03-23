@@ -1,6 +1,6 @@
 import sys
 from django.shortcuts import render, get_object_or_404
-from bleet.models import Bleet, Comment
+from bleet.models import Bleet
 from users.models import Follow, Profile
 from django.contrib.auth.models import User
 from django.views.generic import (
@@ -12,7 +12,9 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Count
-from .forms import NewCommentForm
+from rest_framework.viewsets import ModelViewSet
+
+from .serializers import BleetSerializer
 
 
 def is_author(post, request):
@@ -97,31 +99,6 @@ class UserBleetListView(LoginRequiredMixin, ListView):
         return self.get(self, request, *args, **kwargs)
 
 
-class BleetDetailView(DetailView):
-    model = Bleet
-    template_name = "bleet/bleet_detail.html"
-    context_object_name = "bleet"
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        comments_connected = Comment.objects.filter(
-            bleet_connected=self.get_object()
-        ).order_by("-date_posted")
-        data["comments"] = comments_connected
-        data["form"] = NewCommentForm(instance=self.request.user)
-        return data
-
-    def post(self, request, *args, **kwargs):
-        new_comment = Comment(
-            content=request.POST.get("content"),
-            author=self.request.user,
-            bleet_connected=self.get_object(),
-        )
-        new_comment.save()
-
-        return self.get(self, request, *args, **kwargs)
-
-
 class BleetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Bleet
     template_name = "bleet/bleet_delete.html"
@@ -145,25 +122,6 @@ class BleetCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data["tag_line"] = "Add a new bleet"
-        return data
-
-
-class BleetUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Bleet
-    fields = ["content"]
-    template_name = "bleet/bleet_new.html"
-    success_url = "/"
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        return is_author(self.get_object(), self.request)
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data["tag_line"] = "Edit a bleet"
         return data
 
 
@@ -201,3 +159,9 @@ class FollowersListView(ListView):
         data = super().get_context_data(**kwargs)
         data["follow"] = "followers"
         return data
+
+
+class BleetViewSet(ModelViewSet):
+
+    queryset = Bleet.objects.all()
+    serializer_class = BleetSerializer

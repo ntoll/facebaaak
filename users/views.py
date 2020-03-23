@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from .serializers import UserSerializer
 
 
 def register(request):
@@ -34,4 +40,19 @@ def profile(request):
         uform = UserUpdateForm(instance=request.user)
         pform = ProfileUpdateForm(instance=request.user.profile)
 
-    return render(request, "users/profile.html", {"uform": uform, "pform": pform})
+    token = Token.objects.get(user=request.user)
+    return render(
+        request, "users/profile.html", {"uform": uform, "pform": pform, "token": token}
+    )
+
+
+class UserViewSet(ReadOnlyModelViewSet):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def retrieve(self, request, pk=None):
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, username=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
