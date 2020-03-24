@@ -141,8 +141,8 @@ REST_FRAMEWORK = {
 
 SWAGGER_SETTINGS = {
    'SECURITY_DEFINITIONS': {
-      'Token': {
-            'type': 'apiKey',
+      'Bearer': {
+            'type': 'token',
             'name': 'Authorization',
             'description': "Your API token can be found on your profile page.",
             'in': 'header'

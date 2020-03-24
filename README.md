@@ -43,4 +43,16 @@ pip install -r requirements.txt
 pip install --upgrade pip
 ```
 
+Setup the local Sqlite database:
 
+```
+python manage.py migrate
+```
+
+Run the local development server:
+
+```
+python manage.py runserver
+```
+
+You should be able to visit the website at: http://127.0.0.1:8000/
