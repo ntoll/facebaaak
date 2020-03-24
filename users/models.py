@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     """
-    Represents a user's profile
+    Represents a user's profile. Currently this only includes their bio. This
+    class also makes it easy to get the followers and user following for a
+    particular user.
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,6 +25,10 @@ class Profile(models.Model):
 
 
 class Follow(models.Model):
+    """
+    Represents a follow relationship between two users: a target user and a
+    following user.
+    """
     user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
     follow_user = models.ForeignKey(
         User, related_name="follow_user", on_delete=models.CASCADE

@@ -1,12 +1,11 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.urls import reverse
 
 
 class Bleet(models.Model):
     """
-    Represents a bleet.
+    Represents a bleet (a basic interaction on Facebaaak.
     """
 
     content = models.TextField(

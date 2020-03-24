@@ -26,5 +26,8 @@ def save_profile(sender, instance, **kwargs):
 
 @receiver(post_save, sender=User)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
+    """
+    When a user is created, ensure they have an associated API token.
+    """
     if created:
         Token.objects.create(user=instance)

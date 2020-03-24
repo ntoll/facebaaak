@@ -11,6 +11,9 @@ from .serializers import UserSerializer
 
 
 def register(request):
+    """
+    Register a user from the registration form.
+    """
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -25,6 +28,9 @@ def register(request):
 
 @login_required
 def profile(request):
+    """
+    Display a profile for the logged in user.
+    """
     if request.method == "POST":
         uform = UserUpdateForm(request.POST, instance=request.user)
         pform = ProfileUpdateForm(
@@ -47,6 +53,9 @@ def profile(request):
 
 
 class UserViewSet(ReadOnlyModelViewSet):
+    """
+    API viewset for the users of the system.
+    """
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
